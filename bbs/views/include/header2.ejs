@@ -1,0 +1,21 @@
+<header class="blog-header py-3">
+  <div class="align-items-center d-flex">
+    <div>
+      <a class="blog-header-logo text-dark pl-3" href="/">BBS</a>
+    </div>
+    <div class="login-button pr-3">
+      <% if (typeof user_info === 'undefined') { %>
+        <a class="text-dark" href="/login">Login</a>
+      <% } else { %>
+        <a class="text-dark" href="/logout"><%= user_info.username %></a>
+      <% } %>
+    </div>
+  </div>
+</header>
+  <div class="py-1 mb-4">
+    <nav class="navbar navbar-expand-md">
+      <a class="navbar-brand text-dark" href="/">Top</a>
+      <a class="navbar-brand text-dark" href="#">About</a>
+      <a class="navbar-brand text-dark" href="/new">投稿する</a>
+    </nav>
+  </div>

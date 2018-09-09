@@ -1,0 +1,23 @@
+<% include ./include/header1 %>
+<div class="container">
+  <% include ./include/header2 %>
+
+  <form class="mb-5" method="post" action="/new/post">
+    <div class="form-group">
+      <strong class="title">タイトル</strong>
+      <input type="text" class="form-control mt-1" placeholder="タイトル" name="title" required>
+    </div>
+
+    <div class="form-group mt-4">
+      <strong class="description">本文</strong>
+      <textarea class="form-control mt-1" rows="5" placeholder="本文" name="description" required></textarea>
+    </div>
+
+    <div class="col-12 clearfix">
+      <button type="submit" class="btn btn-primary pb-1 float-right">投稿</button>
+    </div>
+  </form>
+
+  <% include ./include/footer1 %>
+</div>
+<% include ./include/footer2 %>

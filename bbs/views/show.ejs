@@ -2,8 +2,17 @@
 <div class="container">
   <% include ./include/header2 %>
   <main>
-      <h3 style="border-bottom: 4px solid rgba(0,0,0,0.13);"><%= post.title %></h3>
-      <p class="mt-4"><%= post.description %></p>
+      <div class="mb-5">
+        <h3 style="border-bottom: 4px solid rgba(0,0,0,0.13);"><%= post.title %></h3>
+        <p class="mt-4"><%= post.description %></p>
+      </div>
+
+      <div class="pb-3">
+        <form methos="post" action="/delete">
+          <button class="btn btn-primary pb-1"><a class="text-white" href="/edit">編集</a></button>
+          <button type="submit" class="btn btn-primary pb-1">削除</button>
+        </form>
+      </div>
   </main>
   <% include ./include/footer1 %>
 </div>

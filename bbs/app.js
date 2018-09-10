@@ -13,6 +13,7 @@ const mysql = require('mysql2');
 
 const indexRouter = require('./routes/index');
 const postRouter = require('./routes/post');
+const loginRouter = require('./routes/login');
 const connection = require('./mysqlConnection'); 
 const app = express();
 
@@ -72,6 +73,7 @@ app.use(express.static(__dirname + '/public'));
 
 // routing
 app.use('/', indexRouter);
+app.use('/', loginRouter);
 app.use('/new', postRouter);
 
 // catch 404 and forward to error handler

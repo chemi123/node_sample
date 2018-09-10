@@ -1,2 +1,0 @@
-exports.port = 8080;
-exports.host = "192.168.33.10";

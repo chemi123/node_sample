@@ -24,10 +24,16 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:id([0-9]+)', (req, res, next) => {
-  let sql = mysql.format('SELECT ?? from posts', [['id', 'user', 'title', 'description']]);
+  let sql = mysql.format('SELECT ?? from posts WHERE id = ? limit 1',
+                         [['id', 'user', 'title', 'description'], req.params.id]);
   connection.query(sql, (err, results) => {
     if (err) {
       console.error(err);
+    }
+
+    if (results.length < 1) {
+      console.log('no exists');
+      next();
     }
 
     let user_info;
@@ -36,7 +42,7 @@ router.get('/:id([0-9]+)', (req, res, next) => {
     }
 
     res.render('show', { title: title,
-                         post: results[req.params.id-1],
+                         post: results[0],
                          user_info: user_info});
   });
 });

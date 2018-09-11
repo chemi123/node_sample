@@ -5,7 +5,7 @@ const connection = require('../mysqlConnection');
 
 let title = 'BBS'; 
 router.get('/', (req, res, next) => {
-  let sql = mysql.format('SELECT ?? from posts', [['id', 'user', 'title', 'description']]);
+  let sql = mysql.format('SELECT ?? FROM posts;', [['id', 'user', 'title', 'description']]);
   connection.query(sql, (err, results) => {
     if (err) {
       console.error(err);
@@ -23,7 +23,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:id([0-9]+)', (req, res, next) => {
-  let sql = mysql.format('SELECT ?? from posts WHERE id = ? limit 1',
+  let sql = mysql.format('SELECT ?? FROM posts WHERE id = ? LIMIT 1;',
                          [['id', 'user', 'title', 'description'], req.params.id]);
   connection.query(sql, (err, results) => {
     if (err) {
@@ -41,8 +41,20 @@ router.get('/:id([0-9]+)', (req, res, next) => {
     }
 
     res.render('show', { title: title,
-                         post: results[0],
+                         post_data: results[0],
                          user_info: user_info});
+  });
+});
+
+router.delete('/:id([0-9]+)', (req, res, next) => {
+  let sql = mysql.format('DELETE FROM posts WHERE id = ?;',
+                         [req.params.id]);
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.error(err);
+    }
+
+    res.redirect('/');
   });
 });
 

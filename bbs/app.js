@@ -14,6 +14,7 @@ const mysql = require('mysql2');
 const indexRouter = require('./routes/index');
 const postRouter = require('./routes/post');
 const loginRouter = require('./routes/login');
+const editRouter = require('./routes/edit');
 const connection = require('./mysqlConnection'); 
 const app = express();
 
@@ -36,7 +37,7 @@ passport.use(
       passwordField: 'pass'
     },
     (email, password, done) => {
-      let sql = mysql.format('SELECT ?? from users WHERE email = ? limit 1;',
+      let sql = mysql.format('SELECT ?? FROM users WHERE email = ? limit 1;',
                              [['username', 'email', 'password'], email]);
       connection.query(sql, (err, results) => {
         if (results.length === 1) {
@@ -75,6 +76,7 @@ app.use(express.static(__dirname + '/public'));
 app.use('/', indexRouter);
 app.use('/', loginRouter);
 app.use('/new', postRouter);
+app.use('/edit', editRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

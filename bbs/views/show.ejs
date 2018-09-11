@@ -3,13 +3,13 @@
   <% include ./include/header2 %>
   <main>
       <div class="mb-5">
-        <h3 style="border-bottom: 4px solid rgba(0,0,0,0.13);"><%= post.title %></h3>
-        <p class="mt-4"><%= post.description %></p>
+        <h3 style="border-bottom: 4px solid rgba(0,0,0,0.13);"><%= post_data.title %></h3>
+        <p class="mt-4"><%= post_data.description %></p>
       </div>
 
       <div class="pb-3">
-        <form methos="post" action="/delete">
-          <button class="btn btn-primary pb-1"><a class="text-white" href="/edit">編集</a></button>
+        <form method="post" action="/<%= post_data.id %>?_method=DELETE">
+          <button class="btn btn-primary pb-1"><a class="text-white" href="/edit/<%= post_data.id %>">編集</a></button>
           <button type="submit" class="btn btn-primary pb-1">削除</button>
         </form>
       </div>

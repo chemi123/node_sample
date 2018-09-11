@@ -16,8 +16,14 @@ router.get('/:id([0-9]+)', (req, res, next) => {
       next();
     }
 
+    let user_info;
+    if (req.user) {
+      user_info = req.user.name;
+    }
+
     res.render('edit', { title: title,
-                         post_data: results[0] });
+                         post_data: results[0],
+                         user_info: user_info });
   });
 });
 

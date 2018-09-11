@@ -5,7 +5,12 @@ const connection = require('../mysqlConnection');
 
 let title = 'BBS';
 router.get('/', (req, res) => {
-  res.render('new', { title: title });
+  if (req.user) {
+    res.render('new', { title: title,
+                        user_info: req.user.name });
+  } else {
+    res.redirect('/login');
+  }
 });
 
 router.post('/post', (req, res) => {

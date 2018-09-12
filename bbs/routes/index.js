@@ -4,6 +4,12 @@ const router = express.Router();
 const connection = require('../mysqlConnection');
 
 let title = 'BBS'; 
+
+// req.userのフォーマット
+// { name:
+//    { username: 'chemi',
+//      email: 'chemi@chemi.com',
+//      password: 'hogehoge' } }
 router.get('/', (req, res, next) => {
   let sql = mysql.format('SELECT ?? FROM posts;', [['id', 'user', 'title', 'description']]);
   connection.query(sql, (err, results) => {
@@ -15,6 +21,7 @@ router.get('/', (req, res, next) => {
     if (req.user) {
       user_info = req.user.name
     }
+
 
     res.render('index', { title: title,
                           posts: results,
@@ -36,13 +43,16 @@ router.get('/:id([0-9]+)', (req, res, next) => {
     }
 
     let user_info;
+    let is_my_post = false;
     if (req.user) {
       user_info = req.user.name
+      is_my_post = (req.user.name.username === results[0].user) ? true : false;
     }
 
     res.render('show', { title: title,
                          post_data: results[0],
-                         user_info: user_info});
+                         user_info: user_info,
+                         is_my_post: is_my_post});
   });
 });
 

@@ -1,7 +1,6 @@
 const express = require('express');
-const mysql = require('mysql2');
 const router = express.Router();
-const connection = require('../mysqlConnection');
+const models = require('../models/models');
 
 let title = 'BBS';
 router.get('/', (req, res, next) => {
@@ -19,14 +18,15 @@ router.post('/post', (req, res, next) => {
     res.redirect('/login');
   }
 
-  let sql = mysql.format('INSERT INTO post_db.posts (user, title, description) VALUES (?, ?, ?);',
-                         [req.user.name.username, req.body.title, req.body.description]);
-  connection.query(sql, err => {
-    if (err) {
-      console.error(err);
-    }
-
+  models.Posts.create({
+    user: req.user.name.username,
+    title: req.body.title,
+    description: req.body.description
+  }).then(result => {
     res.redirect('/');
+  }).catch(err => {
+    console.error(err);
+    next();
   });
 });
 

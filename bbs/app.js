@@ -9,13 +9,13 @@ const LocalStrategy = require('passport-local').Strategy;
 const flash = require('connect-flash');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
-const mysql = require('mysql2');
 
 const indexRouter = require('./routes/index');
 const postRouter = require('./routes/post');
 const loginRouter = require('./routes/login');
 const editRouter = require('./routes/edit');
-const connection = require('./mysqlConnection'); 
+const sequelize = require('./config/sequelize_connection');
+const models = require('./models/models');
 const app = express();
 
 // -----passport settings begin-----
@@ -37,16 +37,22 @@ passport.use(
       passwordField: 'pass'
     },
     (email, password, done) => {
-      let sql = mysql.format('SELECT ?? FROM users WHERE email = ? limit 1;',
-                             [['username', 'email', 'password'], email]);
-      connection.query(sql, (err, results) => {
-        if (results.length === 1) {
-          if (email === results[0].email && password === results[0].password) {
-            return done(null, results[0]);
+      models.Users.findAll({
+        where: {
+          email: email
+        },
+        limit: 1
+      }).then(users => {
+        if (users) {
+          if (email === users[0].email && password === users[0].password) {
+            return done(null, users[0]);
           }
-        }
 
-        return done(null, false, { message: 'ID or Passwordが間違っています' });
+          return done(null, false, { message: 'ID or Passwordが間違っています' });
+        }
+      }).catch(err => {
+        console.error(err);
+        return done(null, false, { message: 'エラー' });
       });
     }
   )

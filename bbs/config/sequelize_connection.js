@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+require('dotenv').config();
 
 // トランザクション周りのモジュール
 // この設定をやっておくと簡単にトランザクションが書けるようになるらしい
@@ -7,8 +8,7 @@ const Sequelize = require('sequelize');
 // const namespace = cls.createNamespace('my-namespace');
 // Sequelize.useCLS(namespace);
 
-// とりあえずパスワードは平文で(いずれ対応が必要)
-const sequelize = new Sequelize('post_db', 'chemi', 'hogehoge', {
+const sequelize = new Sequelize('post_db', 'chemi', process.env.USER_PASS, {
   host: 'localhost',
   dialect: 'mysql',
 

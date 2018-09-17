@@ -3,7 +3,18 @@
     <div>
       <a class="blog-header-logo text-dark pl-3" href="/">BBS</a>
     </div>
+
+    <% if (typeof user_info === 'undefined') { %>
     <div class="login-button pr-3">
+      <a class="text-dark" href="#">Register</a>
+    </div>
+    <% } %>
+
+    <% if (typeof user_info === 'undefined') { %>
+    <div class="pr-3">
+    <% } else { %>
+    <div class="login-button pr-3">
+    <% } %>
       <% if (typeof user_info === 'undefined') { %>
         <a class="text-dark" href="/login">Login</a>
       <% } else { %>

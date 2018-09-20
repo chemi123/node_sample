@@ -8,7 +8,10 @@ require('dotenv').config();
 // const namespace = cls.createNamespace('my-namespace');
 // Sequelize.useCLS(namespace);
 
-const sequelize = new Sequelize('post_db', 'chemi', process.env.USER_PASS, {
+console.log(process.env.DB_NAME);
+console.log(process.env.USER_NAME);
+console.log(process.env.USER_PASS);
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.USER_NAME, process.env.USER_PASS, {
   host: 'localhost',
   dialect: 'mysql',
 

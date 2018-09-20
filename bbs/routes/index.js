@@ -10,7 +10,9 @@ let title = 'BBS';
 //      email: 'chemi@chemi.com',
 //      password: 'hogehoge' } }
 router.get('/', (req, res, next) => {
-  models.Posts.findAll().then(posts => {
+  models.Posts.findAll({
+    order: [ ['updatedAt', 'DESC'] ]
+  }).then(posts => {
     let user_info;
     if (req.user) {
       user_info = req.user.name

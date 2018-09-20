@@ -9,10 +9,10 @@ const LocalStrategy = require('passport-local').Strategy;
 const flash = require('connect-flash');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
-
 const indexRouter = require('./routes/index');
 const postRouter = require('./routes/post');
 const loginRouter = require('./routes/login');
+const registerRouter = require('./routes/register');
 const editRouter = require('./routes/edit');
 const sequelize = require('./config/sequelize_connection');
 const models = require('./models/models');
@@ -81,6 +81,7 @@ app.use(express.static(__dirname + '/public'));
 // routing
 app.use('/', indexRouter);
 app.use('/', loginRouter);
+app.use('/register', registerRouter);
 app.use('/new', postRouter);
 app.use('/edit', editRouter);
 

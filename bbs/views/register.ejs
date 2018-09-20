@@ -1,0 +1,37 @@
+<% include ./include/header1 %>
+<div class="container">
+  <% include ./include/header2 %>
+  <h5><strong>新規登録</strong></h5>
+  <form class="mb-5" method="post" action="/register">
+    <div class="form-group">
+      <strong class="title">username</strong>
+      <input type="text" class="form-control mt-1" placeholder="username" name="username" required>
+    </div>
+
+    <div class="form-group">
+      <strong class="title">email</strong>
+      <input type="email" class="form-control mt-1" placeholder="email" name="email" required>
+    </div>
+
+    <div class="form-group mt-4">
+      <strong class="description">password</strong>
+      <input type="password"  class="form-control mt-1" placeholder="password" name="pass1" required>
+    </div>
+
+    <div class="form-group mt-4">
+      <strong class="description">password again</strong>
+      <input type="password"  class="form-control mt-1" placeholder="password" name="pass2" required>
+    </div>
+
+    <div class="col-12 clearfix">
+      <button type="submit" class="btn btn-primary pb-1 float-right">ログイン</button>
+    </div>
+  </form>
+
+  <% if (typeof msg !== 'undefined') { %>
+    <p><%= msg %></p>
+  <% } %>
+
+  <% include ./include/footer1 %>
+</div>
+<% include ./include/footer2 %>

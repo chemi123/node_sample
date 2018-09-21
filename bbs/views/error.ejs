@@ -1,3 +1,13 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<% include ./include/header1 %>
+<div class="container">
+  <% include ./include/header2 %>
+  <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+      <h1 class="display-4 font-italic">このページはダメなんだよなー</h1>
+  </div>
+
+  <main>
+    <h1 class="mb-3"><%= error.status %> <%= message %></h1>
+  </main>
+  <% include ./include/footer1 %>
+</div>
+<% include ./include/footer2 %>

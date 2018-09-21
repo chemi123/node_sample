@@ -18,6 +18,8 @@ const sequelize = require('./config/sequelize_connection');
 const models = require('./models/models');
 const app = express();
 
+app.disable('x-powered-by');
+
 // -----passport settings begin-----
 app.use(flash());
 

@@ -98,7 +98,13 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+
+  let user_info;
+  if (req.user) {
+    user_info = req.user.name
+  }
+  res.render('error', { title: 'error page',
+                        user_info: user_info });
 });
 
 module.exports = app;

@@ -26,7 +26,7 @@ router.post('/post', (req, res, next) => {
     res.redirect('/');
   }).catch(err => {
     console.error(err);
-    next();
+    next(err);
   });
 });
 

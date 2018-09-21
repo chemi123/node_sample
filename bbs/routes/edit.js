@@ -8,7 +8,7 @@ router.get('/:id([0-9]+)', (req, res, next) => {
   models.Posts.findById(req.params.id).then(post => {
     if (!post) {
       console.log('no exists');
-      next();
+      return next();
     }
 
     let user_info;
@@ -21,7 +21,7 @@ router.get('/:id([0-9]+)', (req, res, next) => {
                          user_info: user_info });
   }).catch(err => {
     console.error(err);
-    next();
+    next(err);
   });
 });
 
@@ -35,7 +35,7 @@ router.put('/:id([0-9]+)', (req, res, next) => {
     res.redirect('/' + req.params.id);
   }).catch(err => {
     console.error(err);
-    next();
+    next(err);
   });
 });
 

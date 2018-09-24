@@ -6,17 +6,56 @@
   </div>
 
   <main>
-    <% for (let i in posts) { %>
-      <div class="card mb-4 h-md-250">
-        <div class="card-body d-flex flex-column align-items-start">
-          <h3 class="mb-3">
-            <a class="text-dark" href="<%= posts[i].id %>"><%= posts[i].title %></a>
-          </h3>
-          <p class="card-text mb-auto"><%= posts[i].description%></p>
-          <a href="<%= posts[i].id %>">続きを読む</a>
+    <% for (let i = 0; i < 5; i++) { %>
+    <% let elem = (current_page - 1)*5 + i; %>
+
+    <% if (posts[elem]) { %>
+    <div class="card mb-4 h-md-250">
+
+      <div class="card-body d-flex flex-column align-items-start">
+        <h3 class="mb-3">
+          <a class="text-dark" href="<%= posts[elem].id %>"><%= posts[elem].title %></a>
+        </h3>
+        <p class="card-text mb-auto"><%= posts[elem].description%></p>
+        
+        <div>
+          <a href="<%= posts[elem].id %>">続きを読む</a>
         </div>
       </div>
+    </div>
     <% } %>
+    <% } %>
+
+    <nav aria-label="ページ送りの実例">
+      <ul class="pagination">
+        <% if (current_page === '1') { %>
+          <li class="page-item"><a class="page-link" style="color: gray; pointer-events: none;" href="/">前へ</a></li>
+        <% } else { %>
+          <li class="page-item"><a class="page-link" href="/?page=<%= Number(current_page)-1 %>">前へ</a></li>
+        <% } %>
+
+        <%# ページ数が5まで対応。6以上(31個以上の投稿)の場合は画面に表示されなくなるので、本格的に作るなら対応が必要 %>
+        <% if (page_num <= 5) { %>
+
+        <% for (let i = 1; i <= page_num; i++) { %>
+          <% if (current_page === String(i)) { %>
+           <li class="page-item"><a class="page-link" style="color: gray; pointer-events: none;" href="/?page=<%= i %>"><%= i %></a></li>
+          <% } else { %>
+           <li class="page-item"><a class="page-link" href="/?page=<%= i %>"><%= i %></a></li>
+          <% } %>
+        <% } %>
+
+        <% } else { %>
+        <% } %>
+
+        <% if (current_page === String(page_num)) { %>
+          <li class="page-item"><a class="page-link" style="color: gray; pointer-events: none;" href="#">次へ</a></li>
+        <% } else { %>
+          <li class="page-item"><a class="page-link" href="/?page=<%= Number(current_page)+1 %>">次へ</a></li>
+        <% } %>
+      </ul>
+    </nav>
+
   </main>
   <% include ./include/footer1 %>
 </div>

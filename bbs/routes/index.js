@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const math = require('mathjs')
 const models = require('../models/models');
 
 let title = 'BBS'; 
@@ -18,8 +19,24 @@ router.get('/', (req, res, next) => {
       user_info = req.user.name
     }
 
+    let current_page;
+    if (req.query.page && req.query.page !== '0') {
+      if (isNaN(req.query.page)) {
+        console.log('invalid request parameter');
+        return next();
+      }
+
+      current_page = req.query.page;
+    } else {
+      current_page = '1';
+    }
+
+    console.log(current_page);
+
     res.render('index', { title: title,
                           posts: posts,
+                          page_num: math.ceil(posts.length/5),
+                          current_page: current_page,
                           user_info: user_info });
   }).catch(err => {
     next(err);

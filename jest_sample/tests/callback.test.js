@@ -1,14 +1,24 @@
+const request = require('supertest');
+const app = require('../app');
+
 describe('callback', () => {
-  it('callback test starts', done => {
-    let callback = () => {
-      let a = 10;
-      expect(a).toBe(10);
-  
-      // jestの基本仕様はテストの最後の行(この例の場合だとsetTimeoutが呼ばれた時)に終了する
-      // そのため、この例のcallback関数を呼びたいのであればdoneを呼んでおく必要がある
+  it('callback test with done', done => {
+    request(app).get('/').then(response => {
+      expect(response.statusCode).toBe(200);
+
+      // done()を呼び出しておかないと非同期処理が行われずにテスト完了の扱いとなる
       done();
-    }
-  
-    setTimeout(callback, 1000);
+    });
+  });
+
+  it('callback test in promise way', () => {
+    return request(app).get('/').then(response => {
+      expect(response.statusCode).toBe(200);
+    });
+  });
+
+  it('callback test with async', async () => {
+    const response = await request(app).get('/');
+    expect(response.statusCode).toBe(200);
   });
 });

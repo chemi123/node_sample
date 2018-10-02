@@ -21,4 +21,9 @@ describe('callback', () => {
     const response = await request(app).get('/');
     expect(response.statusCode).toBe(200);
   });
+
+  it('expect 404 status', async() => {
+    const response = await request(app).get('/noexist');
+    expect(response.status).toBe(404);
+  });
 });

@@ -1,6 +1,4 @@
-function Util(value) {
-  this.value = value;
-}
+function Util(value) { this.value = value; }
 
 // プロトタイプ
 Util.prototype.add = (a, b) => {

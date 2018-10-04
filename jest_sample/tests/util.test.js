@@ -1,6 +1,7 @@
 const Util = require('../util');
+const Util2 = require('../util2');
 
-describe('describe1', () => {
+describe('util test', () => {
   const util = new Util(0);
   test('(1 + 2) equals 3', () => {
     expect(util.add(1, 2)).toBe(3);
@@ -12,11 +13,23 @@ describe('describe1', () => {
   
 });
 
-describe('describe2', () => {
-  const util = new Util(10);
-  // itはtestのaliasなので全く同じ
-  // https://jestjs.io/docs/en/api.html#testname-fn-timeout
-  it('Util instance value is 10', () => {
-    expect(util.value).toBe(10);
+describe('util2 test', () => {
+  const util2 = new Util2(10);
+
+  it('this.value of util2 is 10', () => {
+    expect(util2.getValue).toBe(10);
+  });
+
+  it('this.value of util2 is 20 after set to 20', () => {
+    util2.setValue = 20;
+    expect(util2.getValue).toBe(20);
+  });
+
+  it('(1 + 2) equals 3', () => {
+    expect(util2.add(1, 2)).toBe(3);
+  });
+
+  it('(1 * 2) equals 2', () => {
+    expect(util2.mul(1, 2)).toBe(2);
   });
 });

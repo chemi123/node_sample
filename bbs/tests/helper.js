@@ -3,6 +3,21 @@ const models = require('../models/models');
 class Helper {
   constructor() {}
 
+  async selectTestDataId() {
+    try {
+      const result = await models.Posts.findOne({
+        where: {
+          user: 'test user'
+        }
+      });
+
+      return result.id;
+    } catch (err) {
+      console.error(err);
+      return -1;
+    }
+  }
+
   async insertTestData() {
     try {
       const result = await models.Posts.create({

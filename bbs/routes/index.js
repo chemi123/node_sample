@@ -66,6 +66,10 @@ router.get('/:id([0-9]+)', (req, res, next) => {
 });
 
 router.delete('/:id([0-9]+)', (req, res, next) => {
+  if (!req.user || req.user.name.username !== post.user) {
+    return next(createError(403));
+  }
+
   models.Posts.destroy({
     where: {
       id: req.params.id

@@ -38,7 +38,7 @@ describe('Edit path test(/edit)', () => {
   afterAll(() => { sequelize.close(); });
 
   // セッションがないので実際にデータがなくても弾かれる
-  it('', async () => {
+  it('Get edit path fails', async () => {
     await request(app).get('/edit/1').expect(403);
   });
 

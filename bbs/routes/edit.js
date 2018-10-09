@@ -1,4 +1,5 @@
 const express = require('express');
+const createError = require('http-errors');
 const router = express.Router();
 const models = require('../models/models');
 
@@ -12,9 +13,10 @@ router.get('/:id([0-9]+)', (req, res, next) => {
     }
 
     let user_info;
-    if (req.user) {
-      user_info = req.user.name;
+    if (!req.user || req.user.name.username !== post.user) {
+      return next(createError(403));
     }
+    user_info = req.user.name;
 
     res.render('edit', { title: title,
                          post_data: post,

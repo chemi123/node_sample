@@ -5,15 +5,11 @@ const sequelize = require('../config/sequelize_connection');
 
 const helper = new Helper();
 
-describe('root test', () => {
+describe('Root path test(/)', () => {
   it('Request to root path returns 200', async () => {
     const response = await request(app).get('/');
     expect(response.statusCode).toBe(200);
   });
-});
-
-describe('Request to root/:id test', () => {
-  afterAll(() => { sequelize.close(); });
 
   it('Request to existing id path returns 200', async () => {
     await helper.insertTestData().then(async id => {
@@ -23,10 +19,30 @@ describe('Request to root/:id test', () => {
     });
   });
 
+  // 正しくセッションがある場合は削除されるテストもしたい
+  it('Delete request without session fails', async () => {
+    await helper.selectTestDataId().then(async id => {
+      await request(app).delete('/' + id).expect(500);
+    });
+  });
+
   it('Request to no existing id path returns 404', async () => {
     await helper.selectTestDataId().then(async id => {
-      await request(app).delete('/' + id).expect(302);
+      await helper.destroyTestData(id);
       await request(app).get('/' + id).expect(404);
     });
+  });
+});
+
+describe('Edit path test(/edit)', () => {
+  afterAll(() => { sequelize.close(); });
+
+  // セッションがないので実際にデータがなくても弾かれる
+  it('', async () => {
+    await request(app).get('/edit/1').expect(403);
+  });
+
+  it('Put request without session fails', async () => {
+    await request(app).put('/edit/1').expect(403);
   });
 });

@@ -28,7 +28,7 @@ router.get('/:id([0-9]+)', (req, res, next) => {
 });
 
 router.put('/:id([0-9]+)', (req, res, next) => {
-  if (!req.user || req.user.name.username !== post.user) {
+  if (!req.user || req.user.name.username !== req.body.username) {
     return next(createError(403));
   }
 

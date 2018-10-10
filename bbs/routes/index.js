@@ -31,8 +31,6 @@ router.get('/', (req, res, next) => {
       current_page = '1';
     }
 
-    console.log(current_page);
-
     res.render('index', { title: title,
                           posts: posts,
                           page_num: math.ceil(posts.length/5),
@@ -66,7 +64,7 @@ router.get('/:id([0-9]+)', (req, res, next) => {
 });
 
 router.delete('/:id([0-9]+)', (req, res, next) => {
-  if (!req.user || req.user.name.username !== post.user) {
+  if (!req.user || req.user.name.username !== req.body.username) {
     return next(createError(403));
   }
 
